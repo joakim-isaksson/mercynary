@@ -32,10 +32,12 @@ public class PlayerController : MonoBehaviour {
 			if (!dashOnCooldown && Input.GetButtonDown ("Dash")) {
 				dashing = true;
 				dashOnCooldown = true;
-				dashingTarget = new Vector2 (
-					transform.position.x + Input.GetAxis ("Horizontal") * DashDistance,
-					transform.position.y + Input.GetAxis ("Vertical") * DashDistance
-				);
+				Vector3 dashingDirection = new Vector3 (
+					Input.GetAxis ("Horizontal"),
+					Input.GetAxis ("Vertical"),
+					0
+				).normalized;
+				dashingTarget = transform.position + dashingDirection * DashDistance;
 				StartCoroutine (DashCooldown ());
 			}
 		} else {
@@ -45,7 +47,6 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 		if (Input.GetButtonDown("Resurrect")) {
-			print ("Resurrecting!");
 			Collider2D[] hits = Physics2D.OverlapCircleAll (transform.position, 2f);
 			foreach (Collider2D hit in hits) {
 				Unit hitUnit = hit.gameObject.GetComponent<Unit> ();
