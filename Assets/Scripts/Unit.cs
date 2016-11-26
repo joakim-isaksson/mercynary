@@ -25,6 +25,10 @@ public class Unit : MonoBehaviour {
     void Update()
     {
         spriteRenderer.sortingOrder = (int)(transform.position.y * 10000);
+
+		if (Random.Range (1, 1000) < 5) {
+			TakeDamage (5);
+		}
     }
 
     public void TakeDamage(int amount)
@@ -44,6 +48,13 @@ public class Unit : MonoBehaviour {
         yield return new WaitForSeconds(10f);
         SetState(UnitState.Expired);
     }
+
+	public void Resurrect(){
+		if (State == UnitState.Dead) {
+			StopAllCoroutines ();
+			SetState(UnitState.Alive);
+		}
+	}
 
     void SetState(UnitState newState)
     {
