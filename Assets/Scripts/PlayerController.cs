@@ -5,13 +5,15 @@ public class PlayerController : MonoBehaviour {
 
 	public float Speed = 5;
 	public float DashDistance = 1f;
-	public float DashingSpeed = 10f;
+	public float MaxDashingSpeed = 3f;
 	public float DashCooldownTime = 5f;
+	public AnimationCurve DashCurve;
 
 	Rigidbody2D rb;
 	bool dashing;
 	bool dashOnCooldown;
 	Vector2 dashingTarget;
+	float dashTimer = 0; 
 
 
 	// Use this for initialization
@@ -32,20 +34,22 @@ public class PlayerController : MonoBehaviour {
 			if (!dashOnCooldown && Input.GetButtonDown ("Dash")) {
 				dashing = true;
 				dashOnCooldown = true;
-				dashingTarget = new Vector2 (
-					transform.position.x + Input.GetAxis ("Horizontal") * DashDistance,
-					transform.position.y + Input.GetAxis ("Vertical") * DashDistance
-				);
+				Vector3 dashingDirection = new Vector3 (
+					Input.GetAxis ("Horizontal"),
+					Input.GetAxis ("Vertical"),
+					0
+				).normalized;
+				dashingTarget = transform.position + dashingDirection * DashDistance;
 				StartCoroutine (DashCooldown ());
 			}
 		} else {
-			rb.MovePosition (Vector2.MoveTowards (transform.position, dashingTarget, Time.deltaTime * DashingSpeed));
+			dashTimer += Time.deltaTime;
+			rb.MovePosition (Vector2.MoveTowards (transform.position, dashingTarget, DashCurve.Evaluate(dashTimer) * MaxDashingSpeed));
 			if (Vector2.Distance (transform.position, dashingTarget) < 0.1) {
 				dashing = false;
 			}
 		}
 		if (Input.GetButtonDown("Resurrect")) {
-			print ("Resurrecting!");
 			Collider2D[] hits = Physics2D.OverlapCircleAll (transform.position, 2f);
 			foreach (Collider2D hit in hits) {
 				Unit hitUnit = hit.gameObject.GetComponent<Unit> ();
@@ -60,5 +64,6 @@ public class PlayerController : MonoBehaviour {
 	IEnumerator DashCooldown(){
 		yield return new WaitForSeconds (DashCooldownTime);
 		dashOnCooldown = false;
+		dashTimer = 0;
 	}
 }
