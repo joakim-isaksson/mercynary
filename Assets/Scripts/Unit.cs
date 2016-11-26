@@ -40,6 +40,7 @@ public class Unit : MonoBehaviour {
     Rigidbody2D rb;
     BoxCollider2D boxCollider;
 	int startingLayer;
+	Animator animator;
 
     int layerMask;
 
@@ -47,6 +48,7 @@ public class Unit : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         layerMask |= 1 << LayerMask.NameToLayer(ShootingTargetMaskName);
+		animator = GetComponentInChildren<Animator> ();
     }
 
     void Start()
@@ -60,6 +62,9 @@ public class Unit : MonoBehaviour {
     {
         if (State == UnitState.Alive)
         {
+			if (animator != null) {
+				animator.SetBool ("Attacking", attacking);
+			}
             if (attacking)
             {
                 Stop();

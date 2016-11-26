@@ -62,9 +62,11 @@ public class PlayerController : MonoBehaviour {
 			float curveValue = DashCurve.Evaluate (dashTimer);
 			rb.MovePosition (Vector2.MoveTowards (transform.position, dashingTarget, curveValue * MaxDashingSpeed));
 			spriteRenderer.color = new Color (1 - curveValue, 1 - curveValue, 1 - curveValue);
+			halo.GetComponent<SpriteRenderer>().color = new Color (1, 1, 1, 1 - curveValue);
 			if (Vector2.Distance (transform.position, dashingTarget) < 0.1) {
 				dashing = false;
 				spriteRenderer.color = new Color (1, 1, 1);
+				halo.GetComponent<SpriteRenderer>().color = new Color (1, 1, 1, 1);
 			}
 		}
 		if (Input.GetButtonDown("Resurrect")) {
