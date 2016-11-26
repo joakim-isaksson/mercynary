@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class Wall : MonoBehaviour {
+public class Castle : MonoBehaviour {
 
 	public GameObject Unit;
 	public Text Text;
