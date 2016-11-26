@@ -44,7 +44,6 @@ public class PlayerController : MonoBehaviour {
 			}
 		} else {
 			dashTimer += Time.deltaTime;
-			print (Time.deltaTime);
 			rb.MovePosition (Vector2.MoveTowards (transform.position, dashingTarget, DashCurve.Evaluate(dashTimer) * MaxDashingSpeed));
 			if (Vector2.Distance (transform.position, dashingTarget) < 0.1) {
 				dashing = false;
