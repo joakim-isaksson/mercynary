@@ -5,13 +5,15 @@ public class PlayerController : MonoBehaviour {
 
 	public float Speed = 5;
 	public float DashDistance = 1f;
-	public float DashingSpeed = 10f;
+	public float MaxDashingSpeed = 3f;
 	public float DashCooldownTime = 5f;
+	public AnimationCurve DashCurve;
 
 	Rigidbody2D rb;
 	bool dashing;
 	bool dashOnCooldown;
 	Vector2 dashingTarget;
+	float dashTimer = 0; 
 
 
 	// Use this for initialization
@@ -41,7 +43,9 @@ public class PlayerController : MonoBehaviour {
 				StartCoroutine (DashCooldown ());
 			}
 		} else {
-			rb.MovePosition (Vector2.MoveTowards (transform.position, dashingTarget, Time.deltaTime * DashingSpeed));
+			dashTimer += Time.deltaTime;
+			print (Time.deltaTime);
+			rb.MovePosition (Vector2.MoveTowards (transform.position, dashingTarget, DashCurve.Evaluate(dashTimer) * MaxDashingSpeed));
 			if (Vector2.Distance (transform.position, dashingTarget) < 0.1) {
 				dashing = false;
 			}
@@ -61,5 +65,6 @@ public class PlayerController : MonoBehaviour {
 	IEnumerator DashCooldown(){
 		yield return new WaitForSeconds (DashCooldownTime);
 		dashOnCooldown = false;
+		dashTimer = 0;
 	}
 }
