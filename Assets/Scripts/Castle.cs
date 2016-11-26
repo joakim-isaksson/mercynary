@@ -8,15 +8,13 @@ public class Castle : MonoBehaviour {
 	public Text Text;
 	public int MaxBreaches = 10;
 	public float SpawnRate = 1f;
-
-	private Owner owner;
+	public Owner Owner;
 
 	private int breachCounter = 0;
 
 	// Use this for initialization
 	void Start () {
 		StartCoroutine (Spawn ());
-		owner = GetComponent<ComponentOwner> ().Owner;
 	}
 	
 	IEnumerator Spawn(){
@@ -28,8 +26,8 @@ public class Castle : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
-		Owner unitowner = col.GetComponent<ComponentOwner> ().Owner;
-		if (this.owner != unitowner && unitowner != Owner.Player) {
+		Owner unitowner = col.GetComponent<Unit> ().Owner;
+		if (this.Owner != unitowner && unitowner != Owner.Player) {
 			Destroy (col.gameObject);
 			breachCounter++;
 			if (Text != null) {
