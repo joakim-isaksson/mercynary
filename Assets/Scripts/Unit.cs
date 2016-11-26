@@ -20,21 +20,33 @@ public class Unit : MonoBehaviour {
     public GameObject ObjDead;
     public GameObject ObjExpired;
 
+    [Header("Shooting")]
+    public float ShootCooldownTime;
+    public GameObject ProjectilePrefab;
+    public string ShootingTargetMaskName;
+    public float ShootingRange;
+
     [HideInInspector]
     public UnitState State;
 
     bool attacking;
+    bool shooting;
     Unit attackingTarget;
+    Unit shootingTarget;
     bool attackOnCooldown;
+    bool shootOnCooldown;
 
     int hitPoints;
     Rigidbody2D rb;
     BoxCollider2D boxCollider;
 	int startingLayer;
 
+    int layerMask;
+
     void Awake () {
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
+        layerMask |= 1 << LayerMask.NameToLayer(ShootingTargetMaskName);
     }
 
     void Start()
@@ -50,18 +62,40 @@ public class Unit : MonoBehaviour {
         {
             if (attacking)
             {
-				Stop ();
-				if (attackingTarget != null) {
-					if (!attackOnCooldown) {
-						attackOnCooldown = true;
-						attackingTarget.TakeDamage (Random.Range (MinDamage, MaxDamage));
-						StartCoroutine (AttackCooldown ());
-					}
-					if (attackingTarget.State != UnitState.Alive)
-						attacking = false;
-				} else {
-					attacking = false;
-				}
+                Stop();
+                if (attackingTarget != null)
+                {
+                    if (!attackOnCooldown)
+                    {
+                        attackOnCooldown = true;
+                        attackingTarget.TakeDamage(Random.Range(MinDamage, MaxDamage));
+                        StartCoroutine(AttackCooldown());
+                    }
+                    if (attackingTarget.State != UnitState.Alive)
+                        attacking = false;
+                }
+                else
+                {
+                    attacking = false;
+                }
+            }
+            else if (shooting && !shootOnCooldown)
+            {
+                if (shootingTarget == null || shootingTarget.State != UnitState.Alive)
+                {
+                    shootingTarget = null;
+                    Collider2D hit = Physics2D.OverlapCircle(transform.position, ShootingRange, layerMask);
+                    if (hit != null) shootingTarget = hit.gameObject.GetComponent<Unit>();
+                }
+
+                if (shootingTarget != null)
+                {
+                    shootOnCooldown = true;
+                    GameObject projectile = (GameObject)Instantiate(ProjectilePrefab, transform.position, transform.rotation);
+                    projectile.GetComponent<Projectile>().Target = shootingTarget.transform.position;
+                    projectile.GetComponent<Projectile>().Owner = Owner;
+                    StartCoroutine(ShootCooldown());
+                } 
             }
             else if (CanMove)
             {
@@ -91,7 +125,7 @@ public class Unit : MonoBehaviour {
         }
     }
 
-	public void Stop(){
+	public void Stop() {
 		if (rb != null) rb.velocity = new Vector2 (0f, 0f);
 	}
 
@@ -121,20 +155,22 @@ public class Unit : MonoBehaviour {
         switch (State)
         {
 			case UnitState.Alive:
-				attacking = false;
+                if (CanShoot) shooting = true;
+                attacking = false;
 				ObjAlive.SetActive (true);
 				ObjDead.SetActive (false);
 				ObjExpired.SetActive (false);
 				gameObject.layer = startingLayer;
                 break;
 			case UnitState.Dead:
-				ObjAlive.SetActive (false);
+                shooting = false;
+                ObjAlive.SetActive (false);
 				ObjDead.SetActive (true);
 				ObjExpired.SetActive (false);
 				attacking = false;
 				Stop ();
 				gameObject.layer = 10;
-                //boxCollider.enabled = false;
+                shooting = false;
                 break;
             case UnitState.Expired:
 				attacking = false;
@@ -142,6 +178,7 @@ public class Unit : MonoBehaviour {
                 ObjDead.SetActive(false);
                 ObjExpired.SetActive(true);
                 boxCollider.enabled = false;
+                shooting = false;
                 break;
         }
     }
@@ -156,5 +193,11 @@ public class Unit : MonoBehaviour {
     {
         yield return new WaitForSeconds(AttackCooldownTime);
         attackOnCooldown = false;
+    }
+
+    IEnumerator ShootCooldown()
+    {
+        yield return new WaitForSeconds(ShootCooldownTime);
+        shootOnCooldown = false;
     }
 }

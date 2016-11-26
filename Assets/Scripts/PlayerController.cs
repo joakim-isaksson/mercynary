@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	void TakeDamage(){
+	public void TakeDamage(){
 		playerCurrentHealth--;
 		Text.text = "Health: " + playerCurrentHealth;
 	}
