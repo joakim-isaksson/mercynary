@@ -43,7 +43,7 @@ public class Unit : MonoBehaviour {
     {
         hitPoints = MaxHitPoints;
 		startingLayer = gameObject.layer;
-        spriteRenderer.sortingOrder = (int)(transform.position.y * 10000);
+        spriteRenderer.sortingOrder = (int)(transform.position.y * -10000);
 		SetState(UnitState.Alive);
     }
     
@@ -69,7 +69,7 @@ public class Unit : MonoBehaviour {
             else if (CanMove)
             {
                 rb.MovePosition(new Vector2(transform.position.x, transform.position.y + MovementSpeed * Time.deltaTime));
-                spriteRenderer.sortingOrder = (int)(transform.position.y * 10000);
+				spriteRenderer.sortingOrder = (int)(transform.position.y * -10000);
             }
         }
     }

@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour {
 	Vector2 dashingTarget;
 	float dashTimer = 0; 
 	int layerMask;
+	private SpriteRenderer spriteRenderer;
 
 	// Use this for initialization
 	void Start () {
@@ -22,10 +23,17 @@ public class PlayerController : MonoBehaviour {
 		dashing = false;
 		dashOnCooldown = false;
 		layerMask |= 1 << LayerMask.NameToLayer ("Resurrectable");
+		spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (Input.GetAxis ("Horizontal") > 0) {
+			GetComponentInChildren<SpriteRenderer> ().flipX = true;
+		} else {
+			GetComponentInChildren<SpriteRenderer> ().flipX = false;
+		}
+
 		if (!dashing) {
 			rb.MovePosition (new Vector2 (
 				transform.position.x + Input.GetAxis ("Horizontal") * Time.deltaTime * Speed,
@@ -59,7 +67,7 @@ public class PlayerController : MonoBehaviour {
 				}
 			}
 		}
-
+		spriteRenderer.sortingOrder = (int)(transform.position.y * -10000);
 	}
 
 	IEnumerator DashCooldown(){
