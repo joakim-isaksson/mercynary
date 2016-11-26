@@ -14,13 +14,14 @@ public class PlayerController : MonoBehaviour {
 	bool dashOnCooldown;
 	Vector2 dashingTarget;
 	float dashTimer = 0; 
-
+	int layerMask;
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
 		dashing = false;
 		dashOnCooldown = false;
+		layerMask |= 1 << LayerMask.NameToLayer ("Resurrectable");
 	}
 	
 	// Update is called once per frame
@@ -50,7 +51,7 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 		if (Input.GetButtonDown("Resurrect")) {
-			Collider2D[] hits = Physics2D.OverlapCircleAll (transform.position, 2f);
+			Collider2D[] hits = Physics2D.OverlapCircleAll (transform.position, 2f, layerMask); // We kind of need the colliders on
 			foreach (Collider2D hit in hits) {
 				Unit hitUnit = hit.gameObject.GetComponent<Unit> ();
 				if (hitUnit != null) {

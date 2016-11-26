@@ -31,6 +31,7 @@ public class Unit : MonoBehaviour {
     SpriteRenderer spriteRenderer;
     Rigidbody2D rb;
     BoxCollider2D boxCollider;
+	int startingLayer;
 
     void Awake () {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -41,8 +42,9 @@ public class Unit : MonoBehaviour {
     void Start()
     {
         hitPoints = MaxHitPoints;
-        SetState(UnitState.Alive);
+		startingLayer = gameObject.layer;
         spriteRenderer.sortingOrder = (int)(transform.position.y * 10000);
+		SetState(UnitState.Alive);
     }
     
     void Update()
@@ -51,13 +53,18 @@ public class Unit : MonoBehaviour {
         {
             if (attacking)
             {
-                if (!attackOnCooldown)
-                {
-                    attackOnCooldown = true;
-                    attackingTarget.TakeDamage(Random.Range(MinDamage, MaxDamage));
-                    StartCoroutine(AttackCooldown());
-                }
-                if (attackingTarget.State != UnitState.Alive) attacking = false;
+				Stop ();
+				if (attackingTarget != null) {
+					if (!attackOnCooldown) {
+						attackOnCooldown = true;
+						attackingTarget.TakeDamage (Random.Range (MinDamage, MaxDamage));
+						StartCoroutine (AttackCooldown ());
+					}
+					if (attackingTarget.State != UnitState.Alive)
+						attacking = false;
+				} else {
+					attacking = false;
+				}
             }
             else if (CanMove)
             {
@@ -75,16 +82,22 @@ public class Unit : MonoBehaviour {
             if (CanAttack && !attacking)
             {
                 attacking = true;
+				Stop ();
                 attackingTarget = other;
             }
 
             if (other.CanAttack && !other.attacking)
             {
                 other.attacking = true;
+				other.Stop ();
                 other.attackingTarget = this;
             }
         }
     }
+
+	public void Stop(){
+		if (rb != null) rb.velocity = new Vector2 (0f, 0f);
+	}
 
     public void TakeDamage(int amount)
     {
@@ -111,19 +124,24 @@ public class Unit : MonoBehaviour {
         State = newState;
         switch (State)
         {
-            case UnitState.Alive:
-                ObjAlive.SetActive(true);
-                ObjDead.SetActive(false);
-                ObjExpired.SetActive(false);
-                boxCollider.enabled = true;
+			case UnitState.Alive:
+				attacking = false;
+				ObjAlive.SetActive (true);
+				ObjDead.SetActive (false);
+				ObjExpired.SetActive (false);
+				gameObject.layer = startingLayer;
                 break;
-            case UnitState.Dead:
-                ObjAlive.SetActive(false);
-                ObjDead.SetActive(true);
-                ObjExpired.SetActive(false);
-                boxCollider.enabled = false;
+			case UnitState.Dead:
+				ObjAlive.SetActive (false);
+				ObjDead.SetActive (true);
+				ObjExpired.SetActive (false);
+				attacking = false;
+				Stop ();
+				gameObject.layer = 10;
+                //boxCollider.enabled = false;
                 break;
             case UnitState.Expired:
+				attacking = false;
                 ObjAlive.SetActive(false);
                 ObjDead.SetActive(false);
                 ObjExpired.SetActive(true);
