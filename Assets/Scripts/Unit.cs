@@ -31,10 +31,12 @@ public class Unit : MonoBehaviour {
     Rigidbody2D rb;
     BoxCollider2D boxCollider;
 	int startingLayer;
+	Animator animator;
 
     void Awake () {
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
+		animator = GetComponentInChildren<Animator> ();
     }
 
     void Start()
@@ -48,6 +50,9 @@ public class Unit : MonoBehaviour {
     {
         if (State == UnitState.Alive)
         {
+			if (animator != null) {
+				animator.SetBool ("Attacking", attacking);
+			}
             if (attacking)
             {
 				Stop ();
