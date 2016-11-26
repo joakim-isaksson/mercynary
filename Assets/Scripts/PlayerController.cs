@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
 	public float DashCooldownTime = 5f;
 	public AnimationCurve DashCurve;
 	public Text Text;
+	public GameObject halo;
 
 	Rigidbody2D rb;
 	bool dashing;
@@ -19,6 +20,8 @@ public class PlayerController : MonoBehaviour {
 	int layerMask;
 	int playerMaxHealth = 10;
 	int playerCurrentHealth = 10;
+	float resurrectRingRange = 0.1f;
+	SpriteRenderer spriteRenderer;
 
 	// Use this for initialization
 	void Start () {
@@ -26,6 +29,7 @@ public class PlayerController : MonoBehaviour {
 		dashing = false;
 		dashOnCooldown = false;
 		layerMask |= 1 << LayerMask.NameToLayer ("Resurrectable");
+		spriteRenderer = GetComponentInChildren<SpriteRenderer> ();
 	}
 	
 	// Update is called once per frame
@@ -55,20 +59,29 @@ public class PlayerController : MonoBehaviour {
 			}
 		} else {
 			dashTimer += Time.deltaTime;
-			rb.MovePosition (Vector2.MoveTowards (transform.position, dashingTarget, DashCurve.Evaluate(dashTimer) * MaxDashingSpeed));
+			float curveValue = DashCurve.Evaluate (dashTimer);
+			rb.MovePosition (Vector2.MoveTowards (transform.position, dashingTarget, curveValue * MaxDashingSpeed));
+			spriteRenderer.color = new Color (1 - curveValue, 1 - curveValue, 1 - curveValue);
 			if (Vector2.Distance (transform.position, dashingTarget) < 0.1) {
 				dashing = false;
+				spriteRenderer.color = new Color (1, 1, 1);
 			}
 		}
 		if (Input.GetButtonDown("Resurrect")) {
-			Collider2D[] hits = Physics2D.OverlapCircleAll (transform.position, 2f, layerMask); // We kind of need the colliders on
+			Collider2D[] hits = Physics2D.OverlapCircleAll (transform.position, resurrectRingRange, layerMask); // We kind of need the colliders on
 			foreach (Collider2D hit in hits) {
 				Unit hitUnit = hit.gameObject.GetComponent<Unit> ();
 				if (hitUnit != null && hitUnit.Owner == Owner.Ally) {
 					hitUnit.Resurrect ();
 				}
 			}
+			resurrectRingRange = 0.1f;
 		}
+		resurrectRingRange += Time.deltaTime / 2;
+		if (resurrectRingRange > 2f) {
+			resurrectRingRange = 2f;
+		}
+		halo.transform.localScale = new Vector3 (resurrectRingRange * 2 * Mathf.PI, resurrectRingRange * 2 * Mathf.PI, 1);
 	}
 
 	IEnumerator DashCooldown(){
