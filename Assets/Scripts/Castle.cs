@@ -28,7 +28,7 @@ public class Castle : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D col){
 		if (col.tag == "Player") return;
 		Owner unitowner = col.GetComponent<Unit> ().Owner;
-		if (this.Owner != unitowner && unitowner != Owner.Player) {
+		if (this.Owner != unitowner) {
 			Destroy (col.gameObject);
 			breachCounter++;
 			if (Text != null) {

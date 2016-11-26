@@ -1,10 +1,13 @@
 fileFormatVersion: 2
 guid: 939ac5d06a7304a91ad5a4863b3987ce
-timeCreated: 1480177291
+timeCreated: 1480178040
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: Ally_Walk_0
+    21300002: Ally_Walk_1
+    21300004: Ally_Walk_2
+    21300006: Ally_Walk_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -57,12 +60,51 @@ TextureImporter:
       name: Ally_Walk_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 1
-        width: 42
-        height: 68
-      alignment: 9
-      pivot: {x: 0.3544974, y: 0.013888903}
+        x: 0
+        y: 0
+        width: 57
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Ally_Walk_1
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 0
+        width: 57
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Ally_Walk_2
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 0
+        width: 57
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Ally_Walk_3
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 0
+        width: 57
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
