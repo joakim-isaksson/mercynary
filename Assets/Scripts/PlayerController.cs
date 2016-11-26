@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
@@ -8,6 +9,7 @@ public class PlayerController : MonoBehaviour {
 	public float MaxDashingSpeed = 3f;
 	public float DashCooldownTime = 5f;
 	public AnimationCurve DashCurve;
+	public Text Text;
 
 	Rigidbody2D rb;
 	bool dashing;
@@ -15,6 +17,8 @@ public class PlayerController : MonoBehaviour {
 	Vector2 dashingTarget;
 	float dashTimer = 0; 
 	int layerMask;
+	int playerMaxHealth = 10;
+	int playerCurrentHealth = 10;
 
 	// Use this for initialization
 	void Start () {
@@ -71,5 +75,18 @@ public class PlayerController : MonoBehaviour {
 		yield return new WaitForSeconds (DashCooldownTime);
 		dashOnCooldown = false;
 		dashTimer = 0;
+	}
+
+	void OnTriggerEnter2D(Collider2D col){
+		if (col.tag == "Unit") {
+			if (col.GetComponent<Unit> ().Owner == Owner.Enemy && !dashing) {
+				TakeDamage ();
+			}
+		}
+	}
+
+	void TakeDamage(){
+		playerCurrentHealth--;
+		Text.text = "Health: " + playerCurrentHealth;
 	}
 }
