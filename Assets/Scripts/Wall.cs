@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpawnLogic : MonoBehaviour {
+public class Wall : MonoBehaviour {
 
 	public GameObject Unit;
+
+	private Owner owner;
 
 	// Use this for initialization
 	void Start () {
 		StartCoroutine (Spawn ());
+		owner = GetComponent<ComponentOwner> ().Owner;
 	}
 	
 	IEnumerator Spawn(){
@@ -19,7 +22,8 @@ public class SpawnLogic : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
-		if (col.tag != tag) {
+		Owner unitowner = col.GetComponent<ComponentOwner> ().Owner;
+		if (this.owner != unitowner && unitowner != Owner.Player) {
 			Destroy (col.gameObject);
 		}
 	}
