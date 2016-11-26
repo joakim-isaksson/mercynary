@@ -1,10 +1,13 @@
 fileFormatVersion: 2
 guid: bb223e60048204460ae722975750a0ac
-timeCreated: 1480177270
+timeCreated: 1480180474
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: Enemy_Walk_0
+    21300002: Enemy_Walk_1
+    21300004: Enemy_Walk_2
+    21300006: Enemy_Walk_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,7 +33,7 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
-    filterMode: -1
+    filterMode: 0
     aniso: 16
     mipBias: -1
     wrapMode: 1
@@ -57,12 +60,51 @@ TextureImporter:
       name: Enemy_Walk_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1
-        width: 60
-        height: 77
-      alignment: 9
-      pivot: {x: 0.7037699, y: 0.007369611}
+        x: 0
+        y: 0
+        width: 87
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Enemy_Walk_1
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 0
+        width: 87
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Enemy_Walk_2
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 0
+        width: 87
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Enemy_Walk_3
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 0
+        width: 87
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

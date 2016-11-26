@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour {
 	Vector2 dashingTarget;
 	float dashTimer = 0; 
 	int layerMask;
-	private SpriteRenderer spriteRenderer;
 
 	// Use this for initialization
 	void Start () {
@@ -23,7 +22,6 @@ public class PlayerController : MonoBehaviour {
 		dashing = false;
 		dashOnCooldown = false;
 		layerMask |= 1 << LayerMask.NameToLayer ("Resurrectable");
-		spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame
@@ -62,12 +60,11 @@ public class PlayerController : MonoBehaviour {
 			Collider2D[] hits = Physics2D.OverlapCircleAll (transform.position, 2f, layerMask); // We kind of need the colliders on
 			foreach (Collider2D hit in hits) {
 				Unit hitUnit = hit.gameObject.GetComponent<Unit> ();
-				if (hitUnit != null) {
+				if (hitUnit != null && hitUnit.Owner == Owner.Ally) {
 					hitUnit.Resurrect ();
 				}
 			}
 		}
-		spriteRenderer.sortingOrder = (int)(transform.position.y * -10000);
 	}
 
 	IEnumerator DashCooldown(){
