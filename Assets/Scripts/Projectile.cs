@@ -20,7 +20,7 @@ public class Projectile : MonoBehaviour {
 
 	void Awake () {
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         flying = true;
         stopped = false;
     }
