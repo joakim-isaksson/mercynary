@@ -33,12 +33,14 @@ public class Unit : MonoBehaviour {
 	int startingLayer;
 	Animator animator;
 	GameObject resurrectionEffect;
+	GameLogic game;
 
     void Awake () {
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
 		animator = GetComponentInChildren<Animator> ();
 		resurrectionEffect = (GameObject)Resources.Load ("Resurrectioneffect");
+		game = FindObjectOfType<GameLogic> ();
     }
 
     void Start()
@@ -144,7 +146,8 @@ public class Unit : MonoBehaviour {
 				gameObject.layer = 10;
                 //boxCollider.enabled = false;
                 break;
-            case UnitState.Expired:
+			case UnitState.Expired:
+				game.RemoveUnit (Owner);
 				attacking = false;
                 ObjAlive.SetActive(false);
                 ObjDead.SetActive(false);
