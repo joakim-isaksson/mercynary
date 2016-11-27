@@ -24,17 +24,14 @@ public class Projectile : MonoBehaviour {
     }
 
 	void Update () {
+        if (!flying) return;
         rb.MovePosition(Vector2.MoveTowards(transform.position, Target, Time.deltaTime * Speed));
-        if (transform.position.Equals(Target))
-        {
-            flying = false;
-            StartCoroutine(DelayedDestroy());
-        }
+        if (Vector2.Distance(transform.position, Target) < 0.001) flying = false;
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!flying || other.tag == "Tower" || other.tag == "Wall") return;
+        if (!flying || other.tag == "Tower" || other.tag == "Wall" || other.tag == "Arrow") return;
 
         if (other.tag == "Unit")
         {
@@ -51,11 +48,5 @@ public class Projectile : MonoBehaviour {
             Destroy(gameObject);
         }
         
-    }
-
-    IEnumerator DelayedDestroy()
-    {
-        yield return new WaitForSeconds(DecayTime);
-        Destroy(gameObject);
     }
 }
