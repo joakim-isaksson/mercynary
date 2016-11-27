@@ -8,6 +8,7 @@ public class GameLogic : MonoBehaviour {
 	private int enemyCounter = 0;
 
 	public GameObject gameOver;
+	public GameObject youWin;
 
 	public void AddUnit(Owner owner){
 		if (owner == Owner.Ally) {
@@ -26,21 +27,28 @@ public class GameLogic : MonoBehaviour {
 	}
 
 	void Update(){
-		if (allyCounter - enemyCounter > 10) {
-			print ("You Win!");
-			if (gameOver != null) {
-				gameOver.SetActive (true);
-				StartCoroutine(LoadCredits ());
-			}
+		if (allyCounter - enemyCounter > 20) {
+			YouWin ();
 		}
 
 		if(allyCounter - enemyCounter < -50){
-			print("You Lose");
+			GameOver ();
+			StartCoroutine(LoadCredits ());
+		}
+	}
+
+	public void GameOver(){
+		if (gameOver != null) {
 			gameOver.SetActive (true);
 			StartCoroutine(LoadCredits ());
 		}
+	}
 
-		print (allyCounter - enemyCounter + " " + (allyCounter + enemyCounter));
+	public void YouWin(){
+		if (youWin != null) {
+			youWin.SetActive (true);
+			StartCoroutine(LoadCredits ());
+		}
 	}
 
 	IEnumerator LoadCredits(){
