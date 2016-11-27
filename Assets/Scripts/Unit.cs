@@ -103,7 +103,13 @@ public class Unit : MonoBehaviour {
 					GameObject projectile = (GameObject)Instantiate(ProjectilePrefab, transform.position, transform.rotation);
 					projectile.GetComponent<Projectile>().Target = shootingTarget.transform.position;
 					projectile.GetComponent<Projectile>().Owner = Owner;
-					StartCoroutine(ShootCooldown());
+
+                    Vector3 vectorToTarget = shootingTarget.transform.position - projectile.transform.position;
+                    float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+                    Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+                    projectile.transform.rotation = Quaternion.Slerp(transform.rotation, q, 1f);
+
+                    StartCoroutine(ShootCooldown());
 				} 
 			}
 			else if (CanMove)
