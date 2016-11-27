@@ -82,6 +82,7 @@ public class PlayerController : MonoBehaviour {
 		}
 		if (Input.GetButtonDown("Resurrect")) {
 			Collider2D[] hits = Physics2D.OverlapCircleAll (transform.position, resurrectRingRange, layerMask); // We kind of need the colliders on
+			animator.SetTrigger("Resurrection");
 			StartCoroutine (Resurrection (hits));
 			resurrectRingRange = 0.1f;
 		}
