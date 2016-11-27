@@ -37,6 +37,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010431261040}
   - 212: {fileID: 212000011881370618}
+  - 114: {fileID: 114000010029854550}
   m_Layer: 0
   m_Name: Alive
   m_TagString: Untagged
@@ -81,7 +82,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011484547510}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.62, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -151,6 +152,17 @@ PolygonCollider2D:
       - {x: 0.6288433, y: -0.92174673}
       - {x: -0.57475954, y: -0.91322434}
       - {x: -0.96408236, y: -0.65490156}
+--- !u!114 &114000010029854550
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011484547510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4ba94a7c2f77452da3bbf9295c8ee92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000012368937552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -208,7 +220,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1811373921
+  m_SortingLayerID: -937522351
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1d1f7bc793cc0a94cb5ad8206f8bdb70, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

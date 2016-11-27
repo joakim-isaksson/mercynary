@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011775806902}
   - 212: {fileID: 212000010918533516}
+  - 114: {fileID: 114000011160938238}
   m_Layer: 9
   m_Name: Alive (1)
   m_TagString: Untagged
@@ -36,6 +37,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013184468578}
   - 212: {fileID: 212000010334310074}
+  - 114: {fileID: 114000013687570720}
   m_Layer: 9
   m_Name: Alive (4)
   m_TagString: Untagged
@@ -68,6 +70,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013623807938}
   - 212: {fileID: 212000013923852960}
+  - 114: {fileID: 114000010343292638}
   m_Layer: 9
   m_Name: Alive (2)
   m_TagString: Untagged
@@ -84,6 +87,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011236207400}
   - 212: {fileID: 212000013100247012}
+  - 114: {fileID: 114000013162878738}
   m_Layer: 9
   m_Name: Alive (3)
   m_TagString: Untagged
@@ -198,7 +202,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014283128580}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.555, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -264,6 +268,28 @@ BoxCollider2D:
   m_Offset: {x: 0.19514155, y: -0.033830523}
   serializedVersion: 2
   m_Size: {x: 1.5689645, y: 1.0314581}
+--- !u!114 &114000010343292638
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012941771856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4ba94a7c2f77452da3bbf9295c8ee92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000011160938238
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010921876786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4ba94a7c2f77452da3bbf9295c8ee92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000012891666802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -293,6 +319,28 @@ MonoBehaviour:
   ShootingTargetMaskName: 
   ShootingRange: 0
   State: 0
+--- !u!114 &114000013162878738
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013224181690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4ba94a7c2f77452da3bbf9295c8ee92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000013687570720
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011102036744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4ba94a7c2f77452da3bbf9295c8ee92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212000010334310074
 SpriteRenderer:
   m_ObjectHideFlags: 1

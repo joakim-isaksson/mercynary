@@ -105,8 +105,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinX: -4.2
   MaxX: 4.2
-  MinY: -2.33
-  MaxY: 2.33
+  MinY: -2.319181
+  MaxY: 2.319181
   CameraSpeed: 4
   FollowObject: {fileID: 0}
 --- !u!124 &124000012353073664
