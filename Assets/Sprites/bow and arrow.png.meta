@@ -1,14 +1,14 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 guid: 57a9dfc81f3cdd643b17ae3ef3d755dc
-timeCreated: 1480180620
-=======
-guid: 0df6a5f80862d4918b5bf096ff1b7158
-timeCreated: 1480179195
->>>>>>> b53e39d4600dfb077d9934022827d56f0096c52e
+timeCreated: 1480239602
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: bow and arrow_0
+    21300002: bow and arrow_1
+    21300004: bow and arrow_2
+    21300006: bow and arrow_3
+    21300008: bow and arrow_4
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -35,7 +35,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -43,20 +43,85 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 800
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: bow and arrow_0
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 11
+        width: 27
+        height: 195
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: bow and arrow_1
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 39
+        width: 139
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: bow and arrow_2
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 28
+        width: 36
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: bow and arrow_3
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 12
+        width: 27
+        height: 194
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: bow and arrow_4
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 30
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 
