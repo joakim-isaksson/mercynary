@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour {
 	int playerCurrentHealth = 10;
 	float resurrectRingRange = 0.1f;
 	SpriteRenderer spriteRenderer;
+	Animator animator;
 
 	// Use this for initialization
 	void Start () {
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour {
 		dashOnCooldown = false;
 		layerMask |= 1 << LayerMask.NameToLayer ("Resurrectable");
 		spriteRenderer = GetComponentInChildren<SpriteRenderer> ();
+		Animator animator = GetComponentInChildren<Animator> ();
 	}
 	
 	// Update is called once per frame
@@ -48,6 +50,7 @@ public class PlayerController : MonoBehaviour {
 
 			if (!dashOnCooldown && Input.GetButtonDown ("Dash")) {
 				dashing = true;
+				animator.SetBool ("Dashing", dashing);
 				dashOnCooldown = true;
 				Vector3 dashingDirection = new Vector3 (
 					Input.GetAxis ("Horizontal"),
@@ -65,6 +68,7 @@ public class PlayerController : MonoBehaviour {
 			halo.GetComponent<SpriteRenderer>().color = new Color (1, 1, 1, 1 - curveValue);
 			if (Vector2.Distance (transform.position, dashingTarget) < 0.1) {
 				dashing = false;
+				animator.SetBool ("Dashing", dashing);
 				spriteRenderer.color = new Color (1, 1, 1);
 				halo.GetComponent<SpriteRenderer>().color = new Color (1, 1, 1, 1);
 			}
