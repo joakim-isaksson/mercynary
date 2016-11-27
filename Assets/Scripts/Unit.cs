@@ -38,7 +38,7 @@ public class Unit : MonoBehaviour {
 
 	int hitPoints;
 	Rigidbody2D rb;
-	BoxCollider2D boxCollider;
+    Collider2D boxCollider;
 	int startingLayer;
 	Animator animator;
 	GameObject resurrectionEffect;
@@ -48,8 +48,9 @@ public class Unit : MonoBehaviour {
 
 	void Awake () {
 		rb = GetComponent<Rigidbody2D>();
-		boxCollider = GetComponent<BoxCollider2D>();
-		layerMask |= 1 << LayerMask.NameToLayer(ShootingTargetMaskName);
+		boxCollider = GetComponent<Collider2D>();
+        if (boxCollider == null) boxCollider = GetComponentInChildren<Collider2D>();
+        layerMask |= 1 << LayerMask.NameToLayer(ShootingTargetMaskName);
 		animator = GetComponentInChildren<Animator> ();
 		resurrectionEffect = Resources.Load<GameObject> ("Resurrectioneffect");
 		game = FindObjectOfType<GameLogic> ();
