@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour {
 		dashOnCooldown = false;
 		layerMask |= 1 << LayerMask.NameToLayer ("Resurrectable");
 		spriteRenderer = GetComponentInChildren<SpriteRenderer> ();
-		Animator animator = GetComponentInChildren<Animator> ();
+		animator = GetComponentInChildren<Animator> ();
 	}
 	
 	// Update is called once per frame
