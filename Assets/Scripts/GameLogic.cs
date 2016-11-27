@@ -30,7 +30,6 @@ public class GameLogic : MonoBehaviour {
 		if (allyCounter - enemyCounter > 20) {
 			YouWin ();
 		}
-
 		if(allyCounter - enemyCounter < -50){
 			GameOver ();
 			StartCoroutine(LoadCredits ());
