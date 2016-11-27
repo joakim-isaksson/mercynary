@@ -23,6 +23,9 @@ public class PlayerController : MonoBehaviour {
 	float resurrectRingRange = 0.1f;
 	SpriteRenderer spriteRenderer;
 	Animator animator;
+	AudioClip[] dashes;
+	AudioClip[] resurrectionSounds;
+	AudioSource source;
 
 	// Use this for initialization
 	void Start () {
@@ -32,6 +35,9 @@ public class PlayerController : MonoBehaviour {
 		layerMask |= 1 << LayerMask.NameToLayer ("Resurrectable");
 		spriteRenderer = GetComponentInChildren<SpriteRenderer> ();
 		animator = GetComponentInChildren<Animator> ();
+		dashes = Resources.LoadAll<AudioClip>("Sounds/Dash");
+		resurrectionSounds = Resources.LoadAll<AudioClip>("Sounds/Resurrect");
+		source = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -50,6 +56,7 @@ public class PlayerController : MonoBehaviour {
 
 			if (!dashOnCooldown && Input.GetButtonDown ("Dash")) {
 				dashing = true;
+				source.PlayOneShot (dashes [Random.Range (0, dashes.Length)]);
 				animator.SetBool ("Dashing", dashing);
 				dashOnCooldown = true;
 				Vector3 dashingDirection = new Vector3 (
@@ -75,12 +82,8 @@ public class PlayerController : MonoBehaviour {
 		}
 		if (Input.GetButtonDown("Resurrect")) {
 			Collider2D[] hits = Physics2D.OverlapCircleAll (transform.position, resurrectRingRange, layerMask); // We kind of need the colliders on
-			foreach (Collider2D hit in hits) {
-				Unit hitUnit = hit.gameObject.GetComponent<Unit> ();
-				if (hitUnit != null && hitUnit.Owner == Owner.Ally) {
-					hitUnit.Resurrect ();
-				}
-			}
+			animator.SetTrigger("Resurrection");
+			StartCoroutine (Resurrection (hits));
 			resurrectRingRange = 0.1f;
 		}
 		resurrectRingRange += Time.deltaTime / 2;
@@ -88,6 +91,17 @@ public class PlayerController : MonoBehaviour {
 			resurrectRingRange = 2f;
 		}
 		halo.transform.localScale = new Vector3 (resurrectRingRange * 2 * Mathf.PI, resurrectRingRange * 2 * Mathf.PI, 1);
+	}
+
+	IEnumerator Resurrection(Collider2D[] hits){
+		foreach (Collider2D hit in hits) {
+			Unit hitUnit = hit.gameObject.GetComponent<Unit> ();
+			if (hitUnit != null && hitUnit.Owner == Owner.Ally) {
+				hitUnit.Resurrect ();
+				source.PlayOneShot (resurrectionSounds [Random.Range (0, dashes.Length)]);
+				yield return new WaitForSeconds (Random.Range (0.05f, 0.15f));
+			}
+		}
 	}
 
 	IEnumerator DashCooldown(){
