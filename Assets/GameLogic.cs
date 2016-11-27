@@ -23,6 +23,14 @@ public class GameLogic : MonoBehaviour {
 	}
 
 	void Update(){
+		if (allyCounter - enemyCounter > 10) {
+			print ("You Win!");
+		}
+
+		if(allyCounter - enemyCounter < -50){
+			print("You Lose");
+		}
+
 		print (allyCounter - enemyCounter + " " + (allyCounter + enemyCounter));
 	}
 }
