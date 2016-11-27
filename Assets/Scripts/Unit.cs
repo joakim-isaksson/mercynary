@@ -160,7 +160,7 @@ public class Unit : MonoBehaviour {
 	public void Resurrect() {
 		if (Resurrectable && State == UnitState.Dead) {
 			StopAllCoroutines ();
-			Instantiate (resurrectionEffect, transform.position + Vector3.down * 0.01f, Quaternion.identity, transform);
+			Instantiate (resurrectionEffect, transform.position, Quaternion.identity, transform);
 			hitPoints = MaxHitPoints;
 			SetState(UnitState.Alive);
 		}
