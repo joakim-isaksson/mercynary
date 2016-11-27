@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour {
 	public AnimationCurve DashCurve;
 	public Text Text;
 	public GameObject halo;
-	public GameObject ResurrectionEffect;
 
 	Rigidbody2D rb;
 	bool dashing;
@@ -98,7 +97,6 @@ public class PlayerController : MonoBehaviour {
 			Unit hitUnit = hit.gameObject.GetComponent<Unit> ();
 			if (hitUnit != null && hitUnit.Owner == Owner.Ally) {
 				hitUnit.Resurrect ();
-				Instantiate (ResurrectionEffect, hitUnit.transform.position + Vector3.up * 0.1f, Quaternion.identity);
 				source.PlayOneShot (resurrectionSounds [Random.Range (0, dashes.Length)]);
 				yield return new WaitForSeconds (Random.Range (0.05f, 0.15f));
 			}

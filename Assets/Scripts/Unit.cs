@@ -20,35 +20,25 @@ public class Unit : MonoBehaviour {
     public GameObject ObjDead;
     public GameObject ObjExpired;
 
-    [Header("Shooting")]
-    public float ShootCooldownTime;
-    public GameObject ProjectilePrefab;
-    public string ShootingTargetMaskName;
-    public float ShootingRange;
-
     [HideInInspector]
     public UnitState State;
 
     bool attacking;
-    bool shooting;
     Unit attackingTarget;
-    Unit shootingTarget;
     bool attackOnCooldown;
-    bool shootOnCooldown;
 
     int hitPoints;
     Rigidbody2D rb;
     BoxCollider2D boxCollider;
 	int startingLayer;
 	Animator animator;
-
-    int layerMask;
+	GameObject resurrectionEffect;
 
     void Awake () {
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
-        layerMask |= 1 << LayerMask.NameToLayer(ShootingTargetMaskName);
 		animator = GetComponentInChildren<Animator> ();
+		resurrectionEffect = (GameObject)Resources.Load ("Resurrectioneffect");
     }
 
     void Start()
@@ -67,40 +57,18 @@ public class Unit : MonoBehaviour {
 			}
             if (attacking)
             {
-                Stop();
-                if (attackingTarget != null)
-                {
-                    if (!attackOnCooldown)
-                    {
-                        attackOnCooldown = true;
-                        attackingTarget.TakeDamage(Random.Range(MinDamage, MaxDamage));
-                        StartCoroutine(AttackCooldown());
-                    }
-                    if (attackingTarget.State != UnitState.Alive)
-                        attacking = false;
-                }
-                else
-                {
-                    attacking = false;
-                }
-            }
-            else if (shooting && !shootOnCooldown)
-            {
-                if (shootingTarget == null || shootingTarget.State != UnitState.Alive)
-                {
-                    shootingTarget = null;
-                    Collider2D hit = Physics2D.OverlapCircle(transform.position, ShootingRange, layerMask);
-                    if (hit != null) shootingTarget = hit.gameObject.GetComponent<Unit>();
-                }
-
-                if (shootingTarget != null)
-                {
-                    shootOnCooldown = true;
-                    GameObject projectile = (GameObject)Instantiate(ProjectilePrefab, transform.position, transform.rotation);
-                    projectile.GetComponent<Projectile>().Target = shootingTarget.transform.position;
-                    projectile.GetComponent<Projectile>().Owner = Owner;
-                    StartCoroutine(ShootCooldown());
-                } 
+				Stop ();
+				if (attackingTarget != null) {
+					if (!attackOnCooldown) {
+						attackOnCooldown = true;
+						attackingTarget.TakeDamage (Random.Range (MinDamage, MaxDamage));
+						StartCoroutine (AttackCooldown ());
+					}
+					if (attackingTarget.State != UnitState.Alive)
+						attacking = false;
+				} else {
+					attacking = false;
+				}
             }
             else if (CanMove)
             {
@@ -130,7 +98,7 @@ public class Unit : MonoBehaviour {
         }
     }
 
-	public void Stop() {
+	public void Stop(){
 		if (rb != null) rb.velocity = new Vector2 (0f, 0f);
 	}
 
@@ -149,7 +117,8 @@ public class Unit : MonoBehaviour {
 	public void Resurrect() {
 		if (Resurrectable && State == UnitState.Dead) {
 			StopAllCoroutines ();
-            hitPoints = MaxHitPoints;
+			Instantiate (resurrectionEffect, transform.position + Vector3.down * 0.01f, Quaternion.identity,transform);
+			hitPoints = MaxHitPoints;
             SetState(UnitState.Alive);
 		}
 	}
@@ -160,22 +129,20 @@ public class Unit : MonoBehaviour {
         switch (State)
         {
 			case UnitState.Alive:
-                if (CanShoot) shooting = true;
-                attacking = false;
+				attacking = false;
 				ObjAlive.SetActive (true);
 				ObjDead.SetActive (false);
 				ObjExpired.SetActive (false);
 				gameObject.layer = startingLayer;
                 break;
 			case UnitState.Dead:
-                shooting = false;
-                ObjAlive.SetActive (false);
+				ObjAlive.SetActive (false);
 				ObjDead.SetActive (true);
 				ObjExpired.SetActive (false);
 				attacking = false;
 				Stop ();
 				gameObject.layer = 10;
-                shooting = false;
+                //boxCollider.enabled = false;
                 break;
             case UnitState.Expired:
 				attacking = false;
@@ -183,7 +150,6 @@ public class Unit : MonoBehaviour {
                 ObjDead.SetActive(false);
                 ObjExpired.SetActive(true);
                 boxCollider.enabled = false;
-                shooting = false;
                 break;
         }
     }
@@ -198,11 +164,5 @@ public class Unit : MonoBehaviour {
     {
         yield return new WaitForSeconds(AttackCooldownTime);
         attackOnCooldown = false;
-    }
-
-    IEnumerator ShootCooldown()
-    {
-        yield return new WaitForSeconds(ShootCooldownTime);
-        shootOnCooldown = false;
     }
 }
