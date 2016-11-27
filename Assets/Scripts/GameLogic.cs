@@ -7,6 +7,9 @@ public class GameLogic : MonoBehaviour {
 	private int allyCounter = 0;
 	private int enemyCounter = 0;
 
+	private bool allyFallen = false;
+	private bool enemyFallen = false;
+
 	public GameObject gameOver;
 	public GameObject youWin;
 
@@ -26,13 +29,24 @@ public class GameLogic : MonoBehaviour {
 		}
 	}
 
+	public void SideFallen(Owner owner){
+		if (owner == Owner.Ally) {
+			allyFallen = true;
+		} else {
+			enemyFallen = true;
+		}
+	}
+
 	void Update(){
-		if (allyCounter - enemyCounter > 20) {
+		if (allyCounter - enemyCounter > 25 && enemyFallen) {
 			YouWin ();
 		}
-		if(allyCounter - enemyCounter < -50){
+		if(allyCounter - enemyCounter < -25 && allyFallen){
 			GameOver ();
-			StartCoroutine(LoadCredits ());
+		}
+
+		if (allyFallen && enemyFallen) {
+			YouWin ();
 		}
 	}
 

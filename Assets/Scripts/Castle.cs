@@ -44,6 +44,7 @@ public class Castle : MonoBehaviour {
 			}
 			if (breachCounter > MaxBreaches) {
 				StopAllCoroutines ();
+				game.SideFallen (Owner);
 			}
 		}
 	}
