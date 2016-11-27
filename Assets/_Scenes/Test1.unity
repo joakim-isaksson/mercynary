@@ -320,26 +320,6 @@ Prefab:
       propertyPath: FollowObject
       value: 
       objectReference: {fileID: 1397848761}
-    - target: {fileID: 114000010785711766, guid: 6eaa2b958e8b30d469775d3eb12515d6,
-        type: 2}
-      propertyPath: MinX
-      value: -4.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010785711766, guid: 6eaa2b958e8b30d469775d3eb12515d6,
-        type: 2}
-      propertyPath: MaxX
-      value: 4.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010785711766, guid: 6eaa2b958e8b30d469775d3eb12515d6,
-        type: 2}
-      propertyPath: MinY
-      value: -2.33
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010785711766, guid: 6eaa2b958e8b30d469775d3eb12515d6,
-        type: 2}
-      propertyPath: MaxY
-      value: 2.33
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6eaa2b958e8b30d469775d3eb12515d6, type: 2}
   m_IsPrefabParent: 0

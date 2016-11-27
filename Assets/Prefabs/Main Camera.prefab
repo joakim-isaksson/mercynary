@@ -103,10 +103,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6baf1e5891168f14d96df642ecfdd61f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MinX: -3.5
-  MaxX: 3.5
-  MinY: -1.8
-  MaxY: 1.8
+  MinX: -4.2
+  MaxX: 4.2
+  MinY: -2.33
+  MaxY: 2.33
   CameraSpeed: 4
   FollowObject: {fileID: 0}
 --- !u!124 &124000012353073664
