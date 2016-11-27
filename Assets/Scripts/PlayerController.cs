@@ -105,6 +105,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void TakeDamage(){
+        if (dashing) return;
 		playerCurrentHealth--;
 		Text.text = "Health: " + playerCurrentHealth;
 	}
