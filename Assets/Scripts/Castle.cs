@@ -36,7 +36,11 @@ public class Castle : MonoBehaviour {
 			Destroy (col.gameObject);
 			breachCounter++;
 			if (Text != null) {
-				Text.text = "" + (MaxBreaches - breachCounter);
+				if (MaxBreaches - breachCounter < 0) {
+					Text.text = "0";
+				} else {
+					Text.text = "" + (MaxBreaches - breachCounter);
+				}
 			}
 			if (breachCounter > MaxBreaches) {
 				StopAllCoroutines ();

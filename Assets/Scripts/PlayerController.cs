@@ -18,8 +18,8 @@ public class PlayerController : MonoBehaviour {
 	Vector2 dashingTarget;
 	float dashTimer = 0; 
 	int layerMask;
-	int playerMaxHealth = 10;
-	int playerCurrentHealth = 10;
+	int playerMaxHealth = 100;
+	int playerCurrentHealth = 100;
 	float resurrectRingRange = 0.1f;
 	SpriteRenderer spriteRenderer;
 	Animator animator;
@@ -121,6 +121,13 @@ public class PlayerController : MonoBehaviour {
 	public void TakeDamage(){
         if (dashing) return;
 		playerCurrentHealth--;
-		Text.text = "Health: " + playerCurrentHealth;
+		if (playerCurrentHealth < 0) {
+			Text.text = "Health: " + 0;
+		} else {
+			Text.text = "Health: " + playerCurrentHealth;
+		}
+		if (playerCurrentHealth < 0) {
+			FindObjectOfType<GameLogic> ().GameOver ();
+		}
 	}
 }
