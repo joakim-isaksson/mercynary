@@ -222,7 +222,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5e0898b397bbbf440b09a165ac90ce60, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a24e62564f2924c86a045f33007ee616, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -239,7 +239,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
---- !u!1001 &2037488307
+--- !u!1001 &1877417519
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -278,6 +278,23 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114000011683931224, guid: e8e7d501752a48246a8dbba6051b38d2, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: e8e7d501752a48246a8dbba6051b38d2, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1877417520 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000012875941886, guid: e8e7d501752a48246a8dbba6051b38d2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1877417519}
+--- !u!114 &1877417521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1877417520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad9bc2b6e03a43c8913a88a6cd6945a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
