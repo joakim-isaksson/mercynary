@@ -41,6 +41,8 @@ public class Unit : MonoBehaviour {
 	BoxCollider2D boxCollider;
 	int startingLayer;
 	Animator animator;
+	GameObject resurrectionEffect;
+	GameLogic game;
 
 	int layerMask;
 
@@ -49,6 +51,8 @@ public class Unit : MonoBehaviour {
 		boxCollider = GetComponent<BoxCollider2D>();
 		layerMask |= 1 << LayerMask.NameToLayer(ShootingTargetMaskName);
 		animator = GetComponentInChildren<Animator> ();
+		resurrectionEffect = Resources.Load<GameObject> ("Resurrectioneffect");
+		game = FindObjectOfType<GameLogic> ();
 	}
 
 	void Start()
@@ -149,6 +153,7 @@ public class Unit : MonoBehaviour {
 	public void Resurrect() {
 		if (Resurrectable && State == UnitState.Dead) {
 			StopAllCoroutines ();
+			Instantiate (resurrectionEffect, transform);
 			hitPoints = MaxHitPoints;
 			SetState(UnitState.Alive);
 		}
@@ -178,6 +183,7 @@ public class Unit : MonoBehaviour {
 			shooting = false;
 			break;
 		case UnitState.Expired:
+			game.RemoveUnit (Owner);
 			attacking = false;
 			ObjAlive.SetActive(false);
 			ObjDead.SetActive(false);
