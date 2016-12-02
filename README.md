@@ -1,4 +1,6 @@
-# Kakaproject
-![kakapo](kakapo.jpg)
+# Mercynary
+2D Action / Tower Defence game - Junktion 2016 Game Jam
+https://5thfloorgames.itch.io/mercynary
 
-Testing push
+#####Theme: Resurection
+![mercynary](mercynary.png)
